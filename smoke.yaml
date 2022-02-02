@@ -1,0 +1,53 @@
+esphome:
+  name: smokedetector
+  platform: ESP32
+  board: nodemcu-32s
+
+wifi:
+  ssid: "TheInjuredUnicorn24"
+  password: "latinPower"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Smoke Fallback Hotspot"
+    password: "tvPvagoiQSPU"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+# Example configuration entry
+binary_sensor:
+  - platform: gpio
+    pin: 2
+    name: "Smoke sensor"
+    device_class: window
+
+sensor:
+  - platform: adc
+    pin: 33 #5
+    name: "Smoke"
+    unit_of_measurement: "%"
+    accuracy_decimals: 4
+    update_interval: 1s
+    filters:
+      - multiply: 100.3
+  - platform: wifi_signal
+    name: "WiFi Signal Sensor"
+    update_interval: 60s  
+
+# sensor:
+#   - platform: dht
+#     pin: 8
+#     temperature:
+#       name: "Living Room Temperature"
+#     humidity:
+#       name: "Living Room Humidity"
+#     update_interval: 60s
+
